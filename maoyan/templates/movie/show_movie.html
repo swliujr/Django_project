@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>查询结果</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+    <style type="text/css">
+        form {
+            width: 90%;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #79aec8;
+            border: 1px #609ab6 solid;
+        }
+
+        .first_line {
+            margin-bottom: 10px;
+        }
+
+        .first_line label {
+            margin: 0 20px;
+        }
+
+        .first_line .first_label {
+            margin-left: 0;
+        }
+
+        .first_line input, .first_line select {
+            display: inline-block;
+            width: 150px;
+            height: 26px;
+        }
+
+        .liu {
+            margin-bottom: 20px;
+        }
+
+        .liu label {
+            margin-right: 20px;
+        }
+
+        .liu .last_label {
+            margin-right: 68px;
+        }
+
+        .liu select {
+            display: inline-block;
+            width: 150px;
+            height: 26px;
+        }
+
+        .btn {
+            outline: none;
+            display: inline-block;
+            width: 100px;
+            height: 26px;
+            line-height: 26px;
+            margin: 0 50px;
+            background-color: skyblue;
+            border: 0;
+            border-radius: 5px;
+            padding: 0;
+        }
+
+        .btn:hover {
+            color: #fff;
+            background-color: blue;
+        }
+
+        .btn_group {
+            text-align: center;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .mr20 {
+            margin-right: 20px;
+        }
+
+        .mr23 {
+            margin-right: 23px;
+        }
+
+        select, input {
+            border: 1px solid #ddd;
+        }
+    </style>
+
+</head>
+<body>
+<div style="width: 100%;font-size:12px">
+    <div class="container" align="center">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover table-bordered table-condensed table-striped">
+                    <tr class="info">
+                        <th>电影名称</th>
+                        <th>别名</th>
+                        <th>题材</th>
+                        <th>时长(分钟)</th>
+                        <th>票房</th>
+                        <th>想看的人数</th>
+                        <th>上映时间</th>
+                        <th>上映区域</th>
+                        <th>导演</th>
+                        <th>上映类型</th>
+                    </tr>
+                    {% for data in movie_datas %}
+                        <tr class="active">
+                            <td><a href="{{ data.movie_url }}" target="_blank">{{ data.movie_name }}</a></td>
+                            <td>{{ data.ename }}</td>
+                            <td>{{ data.movie_type }}</td>
+                            <td>{{ data.movie_minutes }}</td>
+                            <td>{{ data.piaofang }}万</td>
+                            <td>{{ data.want_see_nums }}人</td>
+                            <td>{{ data.movie_time }}</td>
+                            <td>{{ data.movie_area }}</td>
+                            <td>{{ data.celebritys }}</td>
+                            <td>{{ data.player_type }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

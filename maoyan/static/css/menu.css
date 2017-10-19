@@ -1,0 +1,66 @@
+@charset "utf-8";
+/* CSS Document */
+body{font-size:16px; height:100%;font-family:"微软雅黑";background: url("../img/bg.png") top left no-repeat;-webkit-background-size: cover;
+background-size: cover;}
+/*css-reset*/
+html,body,div,ul,ol,li,dl,dt,dd,p,span,em,strong,b,i,h1,h2,h3,h4,form,input,button,textarea,select,option,img,a{ margin:0; padding:0}
+ul,ol,dl,dt,dd,p,img{ display:block; border:0}
+a{ text-decoration:none; outline:none;font-size:12px; }
+a:hover{ text-decoration:underline}
+li{ display:block; list-style:none}
+textarea{resize: none;outline: none}
+input{outline: none;font-size:14px; }
+/*clearfix-浮动清理*/
+.clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden }
+.clearfix { display:inline-block }
+* html .clearfix { height:1% }
+.clearfix { display:block}
+/* 主体样式 */
+h1{width:285px;height:58px;margin: 20px auto 0;}
+.container{width: 915px;margin: 0 auto;height: auto;}
+.container a{float:left;cursor: pointer;}
+.container .ico{width:284px;height: 172px;display:inline-block;margin:8px 10px;background:#0286d9 url("../img/ico.png") 0 0 no-repeat;}
+.container .ico a{font-size: 0px;color: #fff;text-decoration: underline;text-align: center;display: inline-block;width: 100%;margin-top: 118px;}
+.container .ico:hover{width:284px;height: 172px;margin:8px 10px;background:#0286d9 url("../img/ico2.png") 0 0 no-repeat;}
+.container .ico:hover a{font-size: 16px;}
+.container .a1{background-position: 0 0;}
+.container .a2{background-position: -304px 0;}
+.container .a3{background-position: -610px 0;}
+.container .a4{background-position: 0 -189px;}
+.container .a5{background-position: -304px -189px;}
+.container .a6{background-position: 0 -378px;}
+.container .a7{background-position: -304px -378px;}
+.container .a8{background-position: -610px -378px;}
+
+.container .a1:hover{background-position: 0 0;}
+.container .a2:hover{background-position: -304px 0;}
+.container .a3:hover{background-position: -610px 0;}
+.container .a4:hover{background-position: 0 -189px;}
+.container .a5:hover{background-position: -304px -189px;}
+.container .a6:hover{background-position: 0 -378px;}
+.container .a7:hover{background-position: -304px -378px;}
+.container .a8:hover{background-position: -610px -189px;}
+
+.footer{width:915px;margin: 0 auto;text-align: center;margin-top: 30px;color: #7d7d7d;}
+.footer a{color:#0286d9;text-decoration: underline;}
+.footer .pt a{font-size: 16px;}
+.footer .pt span{font-size: 14px;font-family: "宋体";}
+/*相片与演讲*/
+.bj_lecrure{ width:250px; height:40px; background-color:#0286d9;}
+.bj_picture{ width:250px; height:410px; overflow:hidden; position:relative;}
+.lecture_all{ width:1060px; margin-left:auto; margin-right:auto; overflow:hidden;}
+.lecture_all ul li{ float:left; margin-left:20px; width:atuo; overflow:hidden;}
+.lecture_all ul .one{ float:left; margin-left:0px; width:auto; overflow:hidden;}
+.lecture{ margin-bottom:10px; }
+.bj_lecrure ul li{ float:right; margin-right:15px; margin-top:10px; margin-left:0px;}
+.bottom_p{ position:absolute; bottom:10px; color:#fff; text-indent:10px;}
+.bj_picture_hovr{ position:absolute; width:250px; height:410px; background-color:#000; z-index:80; top:0; left:0;background:rgba(0, 0, 0, 0.8)!important; filter:Alpha(opacity=80); display:none;}
+.bj_picture_hovr ul{ margin-top:180px;}
+.bj_picture_hovr a{ color:#fff; text-decoration:none; font-size:14px;}
+.bj_picture_hovr ul li{ color:#fff; float:none; text-align:center; margin-top:20px;}
+
+.monolayer_bj{ width:100%; height:100%; position:fixed; top:0; left:0; background-color:#000; background:rgba(0, 0, 0, 0.9)!important; filter:Alpha(opacity=90); z-index:1;  display:none;}
+.video_x,.video_f{ width:685px;  position:absolute; z-index:90;  left:50%; margin-left:-342.5px; top:70px; background:#fff;  display:none;}
+.close_video{ background-image:url("../img/b.png"); cursor:pointer; width:36px; height:36px; position:absolute; top:50px; z-index:93; left:50%; margin-left:328px; display:none;}
+.close_video:hover{background-image:url("../img/a_03.png");}
+.on_video_x,.on_video_f{ cursor:pointer;}
