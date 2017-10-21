@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'movie'
+    'movie',
+    'tskr'
 
 ]
 
@@ -75,7 +76,7 @@ WSGI_APPLICATION = 'maoyan.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-#记得修改你的密码
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
