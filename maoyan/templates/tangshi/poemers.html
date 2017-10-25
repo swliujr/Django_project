@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>搜索诗人词云</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+    <style type="text/css">
+        form {
+            width: 90%;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #79aec8;
+            border: 1px #609ab6 solid;
+        }
+
+        .first_line {
+            margin-bottom: 10px;
+        }
+
+        .first_line label {
+            margin: 0 20px;
+        }
+
+        .first_line .first_label {
+            margin-left: 0;
+        }
+
+        .first_line input, .first_line select {
+            display: inline-block;
+            width: 150px;
+            height: 26px;
+        }
+
+        .liu {
+            margin-bottom: 20px;
+        }
+
+        .liu label {
+            margin-right: 20px;
+        }
+
+        .liu .last_label {
+            margin-right: 68px;
+        }
+
+        .liu select {
+            display: inline-block;
+            width: 150px;
+            height: 26px;
+        }
+
+        .btn {
+            outline: none;
+            display: inline-block;
+            width: 100px;
+            height: 26px;
+            line-height: 26px;
+            margin: 0 50px;
+            background-color: skyblue;
+            border: 0;
+            border-radius: 5px;
+            padding: 0;
+        }
+
+        .btn:hover {
+            color: #fff;
+            background-color: blue;
+        }
+
+        .btn_group {
+            text-align: center;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .mr20 {
+            margin-right: 20px;
+        }
+
+        .mr23 {
+            margin-right: 23px;
+        }
+
+        select, input {
+            border: 1px solid #ddd;
+        }
+    </style>
+
+
+
+</head>
+<body>
+    <form method="post" action="{% url 'tangshi:poemers_search' %}" class="container">
+        <p><label for="poemer">请输入诗人名:</label> <input id="poemer" maxlength="1000" name="poemer"
+                                                             value="" type="text" style="width: 400px"/>
+            <input type="submit" value="搜索词云">
+        </p><br>
+        {% csrf_token %}
+    </form>
+    <div class="img"> <img src="/static/wordImages/{{ poemer }}.png" alt="{{ poemer_alt }}"></div>
+<div style="width: 100%;font-size:12px">
+    <div class="container" align="center">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover table-bordered table-condensed table-striped">
+                    <tr class="info">
+                        <th>排名</th>
+                        <th>朝代</th>
+                        <th>诗人</th>
+                        <th>作品数</th>
+                        <th>诗人url</th>
+                    </tr>
+                    {% for data in all_poemers_datas %}
+                        <tr class="active">
+                            <td>{{ data.id }}</td>
+                            <td>{{ data.chaodai }}</td>
+                            <td>{{ data.poemer }}</td>
+                            <td>{{ data.zuopins_total }}</td>
+                            <td><a href="{{ data.poemer_url }}" target="_blank">{{ data.poemer_url }}</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+
