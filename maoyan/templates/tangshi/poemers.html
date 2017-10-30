@@ -9,7 +9,6 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
-
     <style type="text/css">
         form {
             width: 90%;
@@ -102,29 +101,37 @@
         }
     </style>
 
-
-
 </head>
 <body>
-    <form method="post" action="{% url 'tangshi:poemers_search' %}" class="container">
-        <p><label for="poemer">请输入诗人名:</label> <input id="poemer" maxlength="1000" name="poemer"
-                                                             value="" type="text" style="width: 400px"/>
-            <input type="submit" value="搜索词云">
-        </p><br>
-        {% csrf_token %}
-    </form>
-    <div class="img"> <img src="/static/wordImages/{{ poemer }}.png" alt="{{ poemer_alt }}"></div>
+<form method="post" action="{% url 'tangshi:poemers_search' %}" class="container">
+    <p><label for="poemer">请输入诗人名:</label> <input id="poemer" maxlength="1000" name="poemer" value="" type="text" style="width: 400px"/>
+        <input type="submit" value="搜索">
+        <button id="export_excel" type="button">导出excel</button>
+    </p>
+    <br>
+    {% csrf_token %}
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#export_excel").click(function () {
+            htmlobj = $.ajax({url: "{% url 'tangshi:export_all_excel' %}", async: false});
+            alert(htmlobj.responseText);
+        });
+    });
+
+</script>
+<br>
 <div style="width: 100%;font-size:12px">
     <div class="container" align="center">
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-hover table-bordered table-condensed table-striped">
                     <tr class="info">
-                        <th>排名</th>
-                        <th>朝代</th>
-                        <th>诗人</th>
-                        <th>作品数</th>
-                        <th>诗人url</th>
+                        <th class="col-md-2">排名</th>
+                        <th class="col-md-2">朝代</th>
+                        <th class="col-md-2">诗人</th>
+                        <th class="col-md-2">作品数</th>
+                        <th class="col-md-4">诗人url</th>
                     </tr>
                     {% for data in all_poemers_datas %}
                         <tr class="active">

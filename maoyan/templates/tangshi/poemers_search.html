@@ -9,7 +9,6 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
-
     <style type="text/css">
         form {
             width: 90%;
@@ -103,16 +102,45 @@
     </style>
 
 
-
 </head>
 <body>
-    <form method="post" action="{% url 'tangshi:poemers_search' %}" class="container">
-        <p><label for="poemer">请输入诗人名:</label> <input id="poemer" maxlength="1000" name="poemer"
-                                                             value="{{ poemer }}" type="text" style="width: 400px"/>
-            <input type="submit" value="搜索">
-        </p><br>
-        {% csrf_token %}
-    </form>
+
+<p><label for="poemer">请输入诗人名:</label> <input id="poemer" maxlength="1000" name="poemer" value="{{ poemer }}" type="text" style="width: 400px"/>
+    <button id="search" type="button">搜索</button>
+    <script type="text/javascript">
+        var poemer = $("input[ name='poemer' ]").val();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'tangshi:poemers_search' %} ",
+            data: {
+                'poemer': poemer,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: 'success'
+        });
+    </script>
+    <button id="export_excel" type="button">导出excel</button>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#export_excel").click(function () {
+                var poemer = $("input[name='poemer']").val();
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'tangshi:export_per_excel' %} ",
+                    data: {
+                        'poemer': poemer,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: 'success'
+                });
+                alert_text = '导出' + poemer + '数据成功';
+                alert(alert_text);
+            });
+        });
+    </script>
+</p>
+<br>
+
 
 <div style="width: 100%;font-size:12px">
     <div class="container" align="center">
@@ -140,7 +168,7 @@
         </div>
     </div>
 </div>
- <div class="img" align="center"> <img src="/static/wordImages/{{ poemer }}.png" alt="{{ poemer }}词云"></div>
+<div class="img" align="center"><img src="/static/wordImages/{{ poemer }}.png" alt="{{ poemer }}词云"></div>
 
 </body>
 </html>

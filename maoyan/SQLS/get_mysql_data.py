@@ -4,7 +4,7 @@ import json
 
 class Get_Mysql_data(object):
     def __init__(self):
-        self.conn = pymysql.connect(host='localhost', user='root', passwd='密码', db='maoyan',charset='utf8', port=3306)
+        self.conn = pymysql.connect(host='localhost', user='root', passwd='admin2016', db='maoyan',charset='utf8', port=3306)
     def exesql(self,sql):
         conn = self.conn
         with conn:

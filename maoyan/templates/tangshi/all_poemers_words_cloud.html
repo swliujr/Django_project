@@ -8,7 +8,7 @@
 <div class=" all_imgs">
 
 {% for item in all_poemers %}
-    <div class="img" align="center"> <img src="/static/wordImages/{{ item.poemer }}.png" alt="{{ item.poemer }}词云">{{ item.id }}-{{ item.poemer }}</div>
+    <div class="img" align="center"> <img src="/static/wordImages/{{ item.poemer }}.png" alt="{{ item.poemer }}词云">{{ item.id }}-<a href="{{ item.poemer_url }}">{{ item.poemer }}</a></div>
     {% endfor %}
 
 </div>

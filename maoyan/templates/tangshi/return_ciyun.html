@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+        <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+<div id=" all_imgs">
+<form>
+<p>result: <span id='result'></span></p>
+<button type="button" id='sum'>ajax提交</button>
+</form>
+    <div id="all_imgs"> 诗人词云</div>
+<script>
+    $(document).ready(function(){
+      $("#sum").click(function(){
+        $.get({% url 'tangshi:all_word_cloud' %},{}, function(ret){
+            $('#all_imgs').html(ret.result)
+        })
+      });
+    });
+</script>
+
+
+</div>
+
+</body>
+</html>
