@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>周报</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/css/templatemo_main.css">
+    <style>
+        table {
+            border-spacing: 0;
+            border-collapse: collapse
+        }
+        th {
+            background-color: #79aec8;
+            border: 1px #609ab6 solid;
+        }
+    </style>
+</head>
+<body>
+<!-- <table class="table table-bordered table-striped table-hover table-condensed"-->
+<div align="center" style="width: 100%;font-size:15px">
+    <h3>周报</h3>
+    <div class="container" align="center">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="oTable" class="table table-hover table-bordered table-condensed table-striped">
+                    <thead>
+                    <tr class="info">
+                        <th>序号</th>
+                        <th>工作内容</th>
+                        <th>完成时间</th>
+                        <th>完成情况</th>
+                        <th>协同部门/人</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tr_tbody">
+                    {% for data in week_reports_data %}
+                        <tr class="active">
+                            <td class="col-md-2"><input style='width:100%' value="{{ data.id }}" id='id1' name="id1">
+                            </td>
+                            <td class="col-md-4"><input style='width:100%' value="{{ data.content }}" id='content1'
+                                                        name="content1"></td>
+                            <td class="col-md-2"><input style='width:100%' value="{{ data.create_time }}"
+                                                        id='create_time1' name="create_time1"></td>
+                            <td class="col-md-2"><input style='width:100%' value="{{ data.finished_status }}"
+                                                        id='finished_status1' name="finished_status1"></td>
+                            <td class="col-md-2"><input style='width:100%' value="{{ data.cooperation }}"
+                                                        id='cooperation1' name="cooperation1"></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <input type="button" value="新增一行" id="btn1" onclick="Addrow()">
+                <button type="button" id="commit">提交保存</button>
+                <button type="button" id="update">更新周报</button>
+                <button type="button" id="delete">删除全部</button>
+                <button id="export_excel" type="button">导出excel</button>
+                <script type="text/javascript">
+                    function Addrow() {
+                        var id = "<tr><td class='col-md-2'><input style='width:100%' type='text'  id='id' name='id' value={{ max_id }}></td>";
+                        var content = "<td class='col-md-4'><input style='width:100%' type='text'  id='content' name='content' value=''></td>";
+                        var create_time = "<td class='col-md-2'><input style='width:100%' type='text'  id='create_time' name='create_time' onclick='get_now_time()'></td>";
+                        var finished_status = "<td class='col-md-2'><input style='width:100%' type='text' id= 'finished_status' name='finished_status' value='' ></td>";
+                        var cooperation = "<td class='col-md-2'><input style='width:100%' type='text'  id='cooperation' name='cooperation' value='' ></td></tr>";
+                        var str_html = id + content + create_time + finished_status + cooperation;
+                        $("#oTable").append(str_html);
+                    }
+                </script>
+                <script type="text/javascript">
+                    function get_now_time() {
+                        function p(s) {
+                            return s < 10 ? '0' + s : s;
+                        }
+                        var myDate = new Date();
+                        var year = myDate.getFullYear();
+                        var month = myDate.getMonth() + 1;
+                        var date = myDate.getDate();
+                        var now_time = year + '-' + p(month) + "-" + p(date);
+                        var x = document.getElementById('create_time');
+                        x.value = now_time;
+                    }
+                </script>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#commit").click(function () {
+                            $.ajax({
+                                type: 'POST',
+                                url: "{% url 'weekreport:add_report' %} ",
+                                data: {
+                                    id: $('#id').val(),
+                                    content: $('#content').val(),
+                                    create_time: $('#create_time').val(),
+                                    finished_status: $('#finished_status').val(),
+                                    cooperation: $('#cooperation').val(),
+                                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                                },
+                                success: function (data) {
+                                    alert(data);
+                                    window.location.reload();
+                                }
+                            });
+                        });
+                    });
+                </script>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#update").click(function () {
+                            $.ajax({
+                                type: 'POST',
+                                url: "{% url 'weekreport:update_report' %} ",
+                                data: {
+                                    id: $('#id1').val(),
+                                    content: $('#content1').val(),
+                                    create_time: $('#create_time1').val(),
+                                    finished_status: $('#finished_status1').val(),
+                                    cooperation: $('#cooperation1').val(),
+                                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                                },
+                                success: function (data) {
+                                    alert(data);
+                                    window.location.reload();
+                                }
+                            });
+                        });
+                    });
+                </script>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#delete").click(function () {
+                            $.ajax({
+                                type: 'get',
+                                url: "{% url 'weekreport:delete_report' %} ",
+                                success: function (data) {
+                                    alert(data);
+                                    window.location.reload();
+                                }
+                            });
+                        });
+                    });
+                </script>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#export_excel").click(function () {
+                            htmlobj = $.ajax({url: "{% url 'weekreport:export_all_excel' %}", async: false});
+                            alert(htmlobj.responseText);
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

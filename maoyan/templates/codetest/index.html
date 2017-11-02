@@ -1,0 +1,156 @@
+<html>
+<head>
+ <meta charset="UTF-8">
+    <title>python代码调试</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{#    <link rel="stylesheet" href="/static/css/style.css">#}
+<style type="text/css">
+ #input_code{width: 500px;height: 470px;}
+ #code_run_result{width: 700px;height: 496px;}
+.textAreaWithLines{font-family: courier;border: 1px solid #ddd;}
+.textAreaWithLines textarea,.textAreaWithLines div{border: 0px;line-height: 140%;font-size: 9px;}
+.lineObj{color: #666;}
+    h1 {
+    font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
+   color: #FFF;
+    background: #9DC45F;
+
+
+    }
+</style>
+<script type="text/javascript">
+var lineObjOffsetTop = 2;
+function createTextAreaWithLines(id)
+{
+  var el = document.createElement('DIV');
+  var ta = document.getElementById(id);
+  ta.parentNode.insertBefore(el,ta);
+  el.appendChild(ta);
+  el.className='textAreaWithLines';
+  el.style.width = (ta.offsetWidth +400) + 'px';
+  ta.style.position = 'absolute';
+  ta.style.left = '30px';
+  el.style.height = (ta.offsetHeight + 2) + 'px';
+  el.style.overflow='hidden';
+  el.style.position = 'relative';
+  el.style.width = (ta.offsetWidth + 30) + 'px';
+  var lineObj = document.createElement('DIV');
+  lineObj.style.position = 'absolute';
+  lineObj.style.top = lineObjOffsetTop + 'px';
+  lineObj.style.left = '0px';
+  lineObj.style.width = '27px';
+  el.insertBefore(lineObj,ta);
+  lineObj.style.textAlign = 'right';
+  lineObj.className='lineObj';
+  var string = '';
+  for(var no=1;no<30;no++){
+   if(string.length>0) string = string + '<br>';
+   string = string + no;
+  }
+   ta.onkeydown = function() { positionLineObj(lineObj,ta); };
+   ta.onmousedown = function() { positionLineObj(lineObj,ta); };
+   ta.onscroll = function() { positionLineObj(lineObj,ta); };
+   ta.onblur = function() { positionLineObj(lineObj,ta); };
+   ta.onfocus = function() { positionLineObj(lineObj,ta); };
+   ta.onmouseover = function() { positionLineObj(lineObj,ta); };
+   lineObj.innerHTML = string;
+  }
+function positionLineObj(obj,ta)
+{
+   obj.style.top = (ta.scrollTop * -1 + lineObjOffsetTop) + 'px';
+}
+</script>
+<script type="text/javascript">
+var lineObjOffsetTop = 2;
+function createTextArea(id)
+{
+  var el = document.createElement('DIV');
+  var ta = document.getElementById(id);
+  ta.parentNode.insertBefore(el,ta);
+  el.appendChild(ta);
+  el.className='textAreaWithLines';
+  el.style.width = (ta.offsetWidth + 400) + 'px';
+  ta.style.position = 'absolute';
+  ta.style.left = '30px';
+  el.style.height = (ta.offsetHeight + 2) + 'px';
+  el.style.overflow='hidden';
+  el.style.position = 'relative';
+  el.style.width = (ta.offsetWidth + 30) + 'px';
+  var lineObj = document.createElement('DIV');
+  lineObj.style.position = 'absolute';
+  lineObj.style.top = lineObjOffsetTop + 'px';
+  lineObj.style.left = '0px';
+  lineObj.style.width = '27px';
+  el.insertBefore(lineObj,ta);
+  lineObj.style.textAlign = 'right';
+  lineObj.className='lineObj';
+  }
+   ta.onkeydown = function() { positionLineObj(lineObj,ta); };
+   ta.onmousedown = function() { positionLineObj(lineObj,ta); };
+   ta.onscroll = function() { positionLineObj(lineObj,ta); };
+   ta.onblur = function() { positionLineObj(lineObj,ta); };
+   ta.onfocus = function() { positionLineObj(lineObj,ta); };
+   ta.onmouseover = function() { positionLineObj(lineObj,ta); };
+
+  }
+function positionLineObj(obj,ta)
+{
+   obj.style.top = (ta.scrollTop * -1 + lineObjOffsetTop) + 'px';
+}
+</script>
+
+</head>
+<body>
+<div>
+
+    <div style="margin-left:20px;float: left;width:49%;position: absolute;" class="smart-green">
+        <h1 style="text-align:center">Python代码调试</h1>
+        <label>
+            <span>请输入你的代码</span>
+            <textarea style="width:100%" id="input_code" name="input_code">{{ input_code }}</textarea>
+                <script type="text/javascript">
+                createTextAreaWithLines('input_code');
+                </script>
+             <button style="width: 100%" type="button" id="run_code">运行代码</button>
+        </label>
+    </div>
+    <div style="margin-right:20px;float: right;width:50%" class="smart-green">
+        <h1 style="text-align:center">运行结果</h1>
+        <label>
+            <span>代码运行结果</span>
+            <textarea style="width:700px" id="code_run_result"></textarea>
+             <script type="text/javascript">
+                createTextArea('code_run_result');
+                </script>
+        </label>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $("#run_code").click(function () {
+                    alert('请稍等,正在运行代码.....');
+                    $.ajax({
+                        type: 'POST',
+                        url: "{% url 'codetest:run' %} ",
+                        data: {
+                            input_code: $('#input_code').val(),
+                            csrfmiddlewaretoken: '{{ csrf_token }}'
+                        },
+                        success: function (data) {
+                            {#                                    var alert_text='输入的代码:'+data.input_code +'运行结果为' +data.code_run_result#}
+                            {#                                    alert(alert_text);#}
+                            $("#code_run_result").val(data.code_run_result);
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </div>
+</div>
+
+
+</body>
+</html>

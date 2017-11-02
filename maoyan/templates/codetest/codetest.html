@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>python代码调试</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div>
+    <div style="margin-left:40px;float: left;width:49%;position: absolute; " class="smart-green">
+        <h1>Python代码调试</h1>
+        <label>
+            <span>请输入你的代码</span>
+            <textarea style="height:470px" id="input_code" name="input_code">{{ input_code }}</textarea>
+        </label>
+        <label>
+            <button style="width: 100%" type="button" id="run_code">运行代码</button>
+{#            <input type="button" onclick="down()" value="下载脚本文件" />#}
+{#            <script type="text/javascript">#}
+{#            function down(){#}
+{#    window.location.href="/static/index.py";#}
+{#}</script>#}
+
+        </label>
+    </div>
+    <div style="margin-right:40px;float: right;width:50%" class="smart-green">
+        <h1>运行结果</h1>
+        <label>
+            <span>代码运行结果</span>
+            <textarea style="height: 496px" id="code_run_result"></textarea>
+        </label>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#run_code").click(function () {
+                    alert('请稍等,正在运行代码......');
+                    $.ajax({
+                        type: 'POST',
+                        url: "{% url 'codetest:run' %} ",
+                        data: {
+                            input_code: $('#input_code').val(),
+                            csrfmiddlewaretoken: '{{ csrf_token }}'
+                        },
+                        success: function (data) {
+                            {#                                    var alert_text='输入的代码:'+data.input_code +'运行结果为' +data.code_run_result#}
+                            {#                                    alert(alert_text);#}
+{#                             $("#input_code").val(data.input_code);#}
+                            $("#code_run_result").val(data.code_run_result);
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </div>
+</div>
+</body>
+</html>

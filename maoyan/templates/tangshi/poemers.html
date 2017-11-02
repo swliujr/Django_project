@@ -104,9 +104,11 @@
 </head>
 <body>
 <form method="post" action="{% url 'tangshi:poemers_search' %}" class="container">
-    <p><label for="poemer">请输入诗人名:</label> <input id="poemer" maxlength="1000" name="poemer" value="" type="text" style="width: 400px"/>
+    <p><label for="poemer">请输入诗人名:</label> <input id="poemer" maxlength="1000" name="poemer" value="" type="text"
+                                                  style="width: 400px"/>
         <input type="submit" value="搜索">
         <button id="export_excel" type="button">导出excel</button>
+        <button id="test_ajax" type="button">test_ajax</button>
     </p>
     <br>
     {% csrf_token %}
@@ -120,7 +122,39 @@
     });
 
 </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#test_ajax").click(function () {
+            $.ajax({
+                type: 'get',
+                url: "{% url 'tangshi:poem_ajax' %} ",
+                success: function (data) {
+{#                    str_data=eval(data);#}
+{#                    for (var i=0;i<str_data.length;i++){#}
+{#                       var item=str_data[i];#}
+{#                       console.log(item);#}
+{#                       str_data=eval(data);#}
+                    for (var i=0;i<data.length;i++){
+                       var item=data[i];
+                       console.log(item);
+
+
+                    }
+
+
+                }
+            });
+
+
+        });
+    });
+
+</script>
 <br>
+<div id="myDiv" style="width: 100%;font-size:12px">
+
+
+</div>
 <div style="width: 100%;font-size:12px">
     <div class="container" align="center">
         <div class="row">

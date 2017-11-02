@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^movie/', include('movie.urls', namespace='movie', app_name='movie')),
     url(r'^tskr/', include('tskr.urls', namespace='tskr', app_name='tskr')),
     url(r'^tangshi/', include('tangshi.urls', namespace='tangshi', app_name='tangshi')),
+    url(r'^weekreport/', include('weekreport.urls', namespace='weekreport', app_name='weekreport')),
+    url(r'^codetest/', include('codetest.urls', namespace='codetest', app_name='codetest')),
 ]
