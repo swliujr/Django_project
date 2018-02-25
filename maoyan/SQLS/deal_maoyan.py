@@ -7,7 +7,7 @@ class MaoyanSpider(object):
             'host': 'localhost',
             'port': 3306,
             'user': 'root',
-            'password': 'admin2016',
+            'password': '密码',
             'db': 'maoyan',
             'charset': 'utf8'
         }
